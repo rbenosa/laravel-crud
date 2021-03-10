@@ -65,7 +65,15 @@
                 <th></th>
             </thead>
             <tbody>
-                @if(count($members) == 0)
+            
+                @forelse($members as $item)
+
+                <tr>
+                    <td>{{ $item['name'] }}</td>
+                    <td>{{ count($item['organization']) }}</td>
+                    <td><button class="btn btn-sm btn-danger float-end" id="member-delete" data-id="{{ $item['id'] }}"><span class="fas fa-fw fa-times"></span></button></td>
+                </tr>
+                @empty
                 <tr>
                     <td colspan="3" class="text-center">
 
@@ -75,16 +83,8 @@
                     </td>
 
                 </tr>
-                @else
-                @foreach($members as $item)
+                @endforelse
 
-                <tr>
-                    <td>{{ $item['name'] }}</td>
-                    <td>{{ count($item['organization']) }}</td>
-                    <td><button class="btn btn-sm btn-danger float-end" id="member-delete" data-id="{{ $item['id'] }}"><span class="fas fa-fw fa-times"></span></button></td>
-                </tr>
-                @endforeach
-                @endif
             </tbody>
         </table>
 
@@ -430,9 +430,9 @@
                             }).then((result) => {
 
                                 if (result.isConfirmed) {
-                                    
+
                                     location.reload();
-                                
+
                                 }
 
                             });

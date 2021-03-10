@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\Person;
 use App\Models\Relation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OrganizationController extends Controller
 {
@@ -76,13 +77,12 @@ class OrganizationController extends Controller
 
             $relation = Relation::insert($bulk_insert);
 
-            if (!$relation) {
-                return abort(500);
-            }
+            abort_if(!$relation, 500);
 
         }
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
+
 
     }
 
@@ -137,11 +137,10 @@ class OrganizationController extends Controller
 
         $relation = Relation::insert($bulk_insert);
 
-        if (!$relation) {
-            return abort(500);
-        }
+        abort_if(!$relation, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
+
     }
 
 
@@ -156,11 +155,9 @@ class OrganizationController extends Controller
 
         $org->save();
 
-        if (!$org) {
-            return abort(500);
-        }
+        abort_if(!$org, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
 
     }
 
@@ -174,11 +171,9 @@ class OrganizationController extends Controller
         $org->delete();
         $relation->delete();
 
-        if (!$org || !$relation) {
-            return abort(500);
-        }
+        abort_if (!$org || !$relation, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
 
     }
 
@@ -190,11 +185,9 @@ class OrganizationController extends Controller
 
         $org->delete();
 
-        if (!$org) {
-            return abort(500);
-        }
+        abort_if(!$org, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
 
     }
 

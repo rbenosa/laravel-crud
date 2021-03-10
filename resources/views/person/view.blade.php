@@ -72,7 +72,17 @@
                 <th></th>
             </thead>
             <tbody>
-                @if(count($person_org) == 0)
+
+                @forelse($person_org as $item)
+                
+                <tr>
+                    <td>{{ $item['name'] }}</td>
+                    <td>{{ count($item['person']) }}</td>
+                    <td><button class="btn btn-sm btn-danger float-end" id="org-delete" data-id="{{ $item['id'] }}"><span class="fas fa-fw fa-times"></span></button></td>
+                </tr>
+
+                @empty
+                
                 <tr>
                     <td colspan="3" class="text-center">
 
@@ -82,15 +92,9 @@
                     </td>
 
                 </tr>
-                @else
-                @foreach($person_org as $item)
-                <tr>
-                    <td>{{ $item['name'] }}</td>
-                    <td>{{ count($item['person']) }}</td>
-                    <td><button class="btn btn-sm btn-danger float-end" id="org-delete" data-id="{{ $item['id'] }}"><span class="fas fa-fw fa-times"></span></button></td>
-                </tr>
-                @endforeach
-                @endif
+                
+                @endforelse
+
             </tbody>
         </table>
 

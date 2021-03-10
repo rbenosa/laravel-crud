@@ -80,11 +80,9 @@ class PersonController extends Controller
 
         $organization = Relation::insert($bulk_insert);
 
-        if (!$organization) {
-            return abort(500);
-        }
+        abort_if(!$organization, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
     }
 
 
@@ -115,9 +113,8 @@ class PersonController extends Controller
 
         $person->save();
 
-        if (!$person) {
-            return abort(500, 'Cannot create person, please try again.');
-        }
+        abort_if(!$person, 500, 'Cannot create person, please try again.');
+        
 
         $person_id = $person->id;
 
@@ -134,13 +131,11 @@ class PersonController extends Controller
 
             $relation = Relation::insert($bulk_insert);
 
-            if (!$relation) {
-                return abort(500);
-            }
+            return abort_if(!$relation, 500);
         
         }
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
 
     }
 
@@ -157,11 +152,9 @@ class PersonController extends Controller
 
         $person->save();
 
-        if (!$person) {
-            return abort(500);
-        }
+        abort_if(!$person, 500, ['status' => 'failed']);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
 
     }
 
@@ -175,11 +168,9 @@ class PersonController extends Controller
         $person->delete();
         $relation->delete();
 
-        if (!$person || !$relation) {
-            return abort(500);
-        }
+        abort_if(!$person || !$relation, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
     }
 
 
@@ -190,11 +181,9 @@ class PersonController extends Controller
         
         $org->delete();
         
-        if(!$org){
-            return abort(500);
-        }
+        abort_if(!$org, 500);
 
-        return response()->json(200);
+        return response()->json(['status' => 'success'], 200);
     }
 
 

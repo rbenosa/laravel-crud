@@ -26,29 +26,29 @@
             </thead>
 
             <tbody>
-                @if(count($organizations) == 0)
-                    <tr>
-                        <td colspan="4" class="text-center">
+                
+                @forelse($organizations as $item)
+                <tr>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ count($item->person) }}</td>
+                    <td class="text-end">{{ date('M d, Y', strtotime($item->created_at)) }}</td>
+                    <td>
+                        <div class="btn-group btn-group-sm float-end" role="group" aria-label="Basic mixed styles example">
+                            <a href="{{ route('organization.view', ['id' => $item->id]) }}" class="btn btn-secondary"><span class="fas fa-fw fa-eye"></span> View</a>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center">
 
-                            <h3>
-                                No records
-                            </h3>
-                        </td>
-                    </tr>
-                @else
-                    @foreach($organizations as $item)
-                        <tr>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ count($item->person) }}</td>
-                            <td class="text-end">{{ date('M d, Y', strtotime($item->created_at)) }}</td>
-                            <td>
-                                <div class="btn-group btn-group-sm float-end" role="group" aria-label="Basic mixed styles example">
-                                    <a href="{{ route('organization.view', ['id' => $item->id]) }}" class="btn btn-secondary"><span class="fas fa-fw fa-eye"></span> View</a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
+                        <h3>
+                            No records
+                        </h3>
+                    </td>
+                </tr>
+                @endforelse
+                
             </tbody>
         </table>
 

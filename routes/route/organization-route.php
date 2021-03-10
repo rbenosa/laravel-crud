@@ -15,4 +15,5 @@ Route::group(['prefix' => 'organization'], function () {
 
     Route::post('/add-member', [OrganizationController::class, 'add_member'])->name('organization.add-member');
     Route::post('/delete-member', [OrganizationController::class, 'delete_member'])->name('organization.delete-member');
+    
 });
